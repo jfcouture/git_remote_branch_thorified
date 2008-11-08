@@ -28,6 +28,14 @@ class Grb < Thor
     `git checkout #{branch_name}`
   end
   
+  desc "track branch_name [origin_server]", "track an existing remote branch"
+  def track(branch_name, origin = 'origin')
+    current_branch = get_current_branch
+    `git fetch #{origin}`
+    `git checkout master` if current_branch == branch_name
+    `git branch --track #{branch_name} #{origin}/#{branch_name}`
+  end
+    
   protected
     BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
     

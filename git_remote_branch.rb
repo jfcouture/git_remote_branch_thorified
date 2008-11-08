@@ -18,7 +18,16 @@ class Grb < Thor
     `git checkout master` if current_branch == branch_name
     `git branch -d #{branch_name}`
   end
-    
+  
+  desc "publish branch_name [origin_server]", "publish an exiting local branch"
+  def publish(branch_name, origin = 'origin')
+    `git push #{origin} #{branch_name}:refs/heads/#{branch_name}`
+    `git fetch #{origin}`
+    `git config branch.#{branch_name}.remote #{origin}`
+    `git config branch.#{branch_name}.merge refs/heads/#{branch_name}`
+    `git checkout #{branch_name}`
+  end
+  
   protected
     BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
     

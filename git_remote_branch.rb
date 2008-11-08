@@ -11,6 +11,14 @@ class Grb < Thor
     `git checkout #{branch_name}`
   end
   
+  desc "delete branch_name [origin_server]", "delete a local and a remote branch"
+  def delete(branch_name, origin = 'origin')
+    current_branch = get_current_branch
+    `git push #{origin} :refs/heads/#{branch_name}`
+    `git checkout master` if current_branch == branch_name
+    `git branch -d #{branch_name}`
+  end
+    
   protected
     BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
     

@@ -1,3 +1,13 @@
 ==== Git Remote Branch Thorified ====
 
-This is a pointless project. I want to try out thor and so I decided to rewrite the excellent git_remote_branch by Mathieu Martin with it.
+This is a pointless project. I want to try out thor (http://github.com/wycats/thor) and so I decided to rewrite the excellent git_remote_branch (http://github.com/webmat/git_remote_branch) by Mathieu Martin with it.
+
+It lacks these features from git_remote_branch:
+- explain command
+- it does not output the command being executed
+- absolutely no tests. Use at your own risk
+
+It requires more keystrokes:
+grb create branch vs. thor grb:create branch
+
+It however provides all the cool features that thor ..hum.. provides. (I'm not exactly sure what these are yet)

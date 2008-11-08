@@ -35,7 +35,18 @@ class Grb < Thor
     `git checkout master` if current_branch == branch_name
     `git branch --track #{branch_name} #{origin}/#{branch_name}`
   end
-    
+  
+  desc "rename branch_name [origin_server]", "rename a remote branch and its local tracking branch"
+  def rename(branch_name, origin = 'origin')
+    current_branch = get_current_branch
+    `git push #{origin} #{current_branch}:refs/heads/#{branch_name}`
+    `git fetch #{origin}`
+    `git branch --track #{branch_name} #{origin}/#{branch_name}`
+    `git checkout #{branch_name}`
+    `git push #{origin} :refs/heads/#{current_branch}`
+    `git branch -d #{current_branch}`
+  end
+  
   protected
     BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
     

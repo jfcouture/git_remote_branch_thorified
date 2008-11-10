@@ -1,13 +1,64 @@
 ==== Git Remote Branch Thorified ====
 
-This is a pointless project. I want to try out thor (http://github.com/wycats/thor) and so I decided to rewrite the excellent git_remote_branch (http://github.com/webmat/git_remote_branch) by Mathieu Martin with it.
+This is a pointless project. I wanted to try out thor (http://github.com/wycats/thor) and so I decided to rewrite the excellent git_remote_branch (http://github.com/webmat/git_remote_branch) by Mathieu Martin with it.
 
 It lacks these features from git_remote_branch:
 - explain command
 - it does not output the command being executed
 - absolutely no tests. Use at your own risk
+- no alias for commands
 
 It requires more keystrokes:
 grb create branch vs. thor grb:create branch
 
-It however provides all the cool features that thor ..hum.. provides. (I'm not exactly sure what these are yet)
+It however provides all the cool features that thor ..hum.. provides. I'm not exactly sure what these are yet, but I'll guess:
+- no need for options parsing code
+- no need to create a gem
+
+==== Installation ====
+
+- gem install thor
+- thor install http://github.com/jfcouture/git_remote_branch_thorified/tree/master/git_remote_branch.rb?raw=true
+
+==== Help ====
+
+- thor list
+
+=== Explanation of command (from git_remote_branch) ===
+== create ==
+Create a new local branch as well as a corresponding remote branch from the
+branch you are currently on.
+Automatically track the new remote branch (useful for pulling and merging).
+Switch to the new branch.
+
+$ thor grb:create branch_name [origin_server]
+
+
+== publish ==
+Publish an existing local branch to the remote server.
+Set up the local branch to track the new remote branch.
+Switch to the new branch.
+
+$ thor grb:publish branch_name [origin_server]
+
+
+== delete (aliases: destroy, kill, remove) ==
+Delete the remote branch then delete the local branch.
+The local branch is not deleted if there are pending changes.
+
+$ thor grb:delete branch_name [origin_server]
+
+
+== track (aliases: follow grab fetch) ==
+Track an existing remote branch locally.
+
+$ thor grb:track branch_name [origin_server]
+
+
+== rename (aliases: rn, mv, move) ==
+To rename the branch you're currently on.
+Rename the remote branch by copying then deleting the old name.
+Checkout a new local tracking branch with the new name and delete the local
+branch with the old name.
+
+$ thor grb:rename branch_name [origin_server]
